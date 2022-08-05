@@ -1,9 +1,10 @@
 import express from 'express';
 const router = express.Router();
 
-import homeRoutes from './home-routes.js';
-
-router.use('/', homeRoutes);
+router.get('/', async (req, res) => {
+    res.render('all');
+});
 
 export default router;
+
 

@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// import routes from './controllers/index.js';
+import router from './controllers/index.js';
 import sequelize from './config/connection.js';
 
 const app = express();
@@ -22,9 +22,9 @@ const sess = {
   
   app.use(session(sess));
   
-//   const hbs = exphbs.create({ helpers });
+  const hbs = exphbs.create({});
   
-//   app.engine('handlebars', hbs.engine);
+  app.engine('handlebars', hbs.engine);
   app.set('view engine', 'handlebars');
   
 // Express middleware
@@ -32,7 +32,7 @@ const sess = {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static(path.join(__dirname, 'public')));
   
-//   app.use(routes);
+  app.use(router);
   
   sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log(`Now listening on PORT ${PORT}`));
