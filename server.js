@@ -1,6 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 import exphbs from 'express-handlebars';
+import SequelizeStore from 'connect-session-sequelize';
 import path from 'path';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -17,8 +18,15 @@ const PORT = process.env.PORT || 3001;
 // Set up sessions
 const sess = {
     secret: 'Super secret secret',
+    cookie: {
+        maxAge: 3600
+    },
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
+    store: new SequelizeStore({
+        db: sequelize
+    })
+
 };
 app.use(session(sess));
 
