@@ -1,36 +1,35 @@
-import {Model, Datatypes} from Sequelize;
+import Model from "sequelize";
+import Datatype from "sequelize";
+
 
 // Import connection file
-import sequelize from './config/connection.js';
+import sequelize from '../config/connection.js';
 
-class Post extends Model {};
-
-Post.init (
-    {
+const Post = sequelize.define('Post', {
         id: {
-            type: Datatypes.INTEGER,
+            type: Datatype.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
         title: {
-            type: Datatypes.STRING,
+            type: Datatype.STRING,
             allowNull: false
         },
         contents: {
-            type: Datatypes.STRING,
+            type: Datatype.STRING,
             allowNull: false
         },
         creation_date: {
-            type: Datatypes.DATE,
+            type: Datatype.DATE,
             allowNull: false
         },
         updated_at: {
-            type: Datatypes.DATE,
+            type: Datatype.DATE,
             allowNull: true
         },
         user_id: {
-            type: Datatypes.INTEGER,
+            type: Datatype.INTEGER,
             references: {
                 model: 'user',
                 key: 'id'
