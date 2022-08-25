@@ -1,6 +1,7 @@
 import {Model, Datatypes} from Sequelize;
 import bcrypt from "bcrypt";
 
+
 // Import connection file
 import sequelize from './config/connection.js';
 
