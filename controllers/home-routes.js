@@ -35,11 +35,11 @@ router.get('/signup', async (req, res) => {
 });
 
 router.get('/dashboard', async (req, res) => {
-    res.render('dashboard'); 
+    res.render('dashboard', {loggedIn: req.session.loggedIn}); 
 });
 
 router.get('/post/:id', async (req, res) => {
-    res.render('post'); 
+    res.render('post', {loggedIn: req.session.loggedIn}); 
 });
 
 export default router;
