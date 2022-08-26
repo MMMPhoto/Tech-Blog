@@ -23,8 +23,32 @@ router.post('/', async (req, res) => {
 
 // User Login
 router.post('/login', async (req, res) => {
+    try {
+        const userLogin = await User.findOne({
+            where: {
+                username: req.body.username
+            }
+        });
+        if (!userLogin) {
+            res.status(400).json({message: 'Username or password not found!'});
+            return;
+        };
+        const passwordCheck = await userLogin.checkPassword(req.body.password);
 
+        if (!passwordCheck) {
+            res.status(400).json({message: 'Username or password not found!'});
+            return;
+        };
 
+        req.session.save(() => {
+            req.session.user_id = userLogin.id;
+            req.session.loggedIn = true;
+            console.log(req.session.logged_in);
+            res.json({ status: 200, user: userLogin, message: 'You are now logged in!'});
+        });
+    } catch (err) {
+        res.status(400).json(err);
+    }
 
 });
 

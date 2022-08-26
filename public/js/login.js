@@ -14,13 +14,16 @@ const loginHandler = async (event) => {
         .then((response) => {
             return response;
         })
+        .then((results) => {
+            return results;
+        })
         .catch(err => response.status(500).send(err));
     };
 
-    let response = await sendLogin(username, password);
+    let results = await sendLogin(username, password);
         
-    if (response.ok) {
-      document.location.replace('/');
+    if (results.status === 200) {
+      document.location.replace('/dashboard');
     } else {
       alert('Failed to log in.');
     }
