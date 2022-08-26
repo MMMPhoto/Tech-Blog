@@ -5,7 +5,7 @@ const signupHandler = async (event) => {
     const email = document.querySelector('#email-signup').value.trim();
     const password = document.querySelector('#password-signup').value.trim();
 
-  if (username && password) {
+  if (username && email && password) {
     const sendLogin = async (username, email, password) => {
         return fetch('/api/users', {
             method: 'POST',
@@ -15,16 +15,21 @@ const signupHandler = async (event) => {
         .then((response) => {
             return response;
         })
+        .then((results) => {
+          return results;
+        })
         .catch(err => response.status(500).send(err));
     };
 
-    let response = await sendLogin(username, email, password);
+    let results = await sendLogin(username, email, password);
         
-    if (response.ok) {
+    if (results.status === 200) {
       document.location.replace('/dashboard');
     } else {
       alert('Failed to log in.');
     }
+  } else {
+    alert('Please fill out all required fields!');
   }
 
 };

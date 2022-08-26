@@ -6,12 +6,6 @@ import bcrypt from "bcrypt";
 // Import connection file
 import sequelize from '../config/connection.js';
 
-// class User extends Model {
-//     checkPassword(loginPw) {
-//         return bcrypt.compareSync(loginPw, this.password);
-//     };
-// };
-
 const User = sequelize.define('User', {
         id: {
             type: Datatype.INTEGER,
@@ -53,6 +47,10 @@ const User = sequelize.define('User', {
         modelName: 'user'
     }
 );
+
+User.checkPassword = (loginPw) => {
+        return bcrypt.compareSync(loginPw, this.password);
+};
 
 export default User;
 
