@@ -56,10 +56,4 @@ router.post('/login', async (req, res) => {
 
 });
 
-
-// User Log out
-router.post('/logout', async (req, res) => {
-
-});
-
 export default router;

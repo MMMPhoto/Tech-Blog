@@ -42,6 +42,13 @@ router.get('/post/:id', async (req, res) => {
     res.render('post', {loggedIn: req.session.loggedIn}); 
 });
 
+// User Log out
+router.get('/logout', async (req, res) => {
+    req.session.destroy();
+    res.render('homepage');
+    res.redirect('/');
+});
+
 export default router;
 
 
