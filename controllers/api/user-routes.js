@@ -13,6 +13,9 @@ router.post('/', async (req, res) => {
         console.log(newUser);
         req.session.save(() => {
             req.session.loggedIn = true;
+            req.session.user = newUser.id;
+            console.log(`loggedIn = ${req.session.loggedIn}`);
+            console.log(req.session.user);
             res.status(200).json(newUser);
         });
     } catch (err) {
@@ -29,11 +32,12 @@ router.post('/login', async (req, res) => {
                 username: req.body.username
             }
         });
+        console.log(userLogin);
         if (!userLogin) {
             res.status(400).json({message: 'Username or password not found!'});
             return;
         };
-        const passwordCheck = await userLogin.checkPassword(req.body.password);
+        const passwordCheck = await userLogin.checkPassword(req.body.password, userLogin.dataValues.password);
 
         if (!passwordCheck) {
             res.status(400).json({message: 'Username or password not found!'});

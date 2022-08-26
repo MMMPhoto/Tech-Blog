@@ -1,13 +1,20 @@
+// Enable Require
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
+// General Imports
 import express from 'express';
 import session from 'express-session';
 import exphbs from 'express-handlebars';
-import SequelizeStore from 'connect-session-sequelize';
 import path from 'path';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// Seet up Sequelize
+// Define SequilizeStore with session.store
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+// Set up Sequelize
 import router from './controllers/index.js';
 import sequelize from './config/connection.js';
 
@@ -23,9 +30,9 @@ const sess = {
     },
     resave: false,
     saveUninitialized: true,
-    // store: new SequelizeStore({
-    //     db: sequelize
-    // })
+    store: new SequelizeStore({
+        db: sequelize
+    })
 };
 app.use(session(sess));
 

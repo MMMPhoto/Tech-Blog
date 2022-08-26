@@ -48,8 +48,8 @@ const User = sequelize.define('User', {
     }
 );
 
-User.checkPassword = (loginPw) => {
-        return bcrypt.compareSync(loginPw, this.password);
+User.prototype.checkPassword = (loginPw, hashedPassword) => {
+        return bcrypt.compareSync(loginPw, hashedPassword);
 };
 
 export default User;

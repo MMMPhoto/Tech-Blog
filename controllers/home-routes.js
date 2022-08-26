@@ -23,7 +23,7 @@ let postTest = [
 ];
 
 router.get('/', async (req, res) => {
-    res.render('homepage', {postTest});
+    res.render('homepage', {postTest, loggedIn: req.session.loggedIn});
 });
 
 router.get('/login', async (req, res) => {
