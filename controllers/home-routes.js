@@ -27,15 +27,15 @@ let postTest = [
 
 router.get('/', async (req, res) => {
     try {
-        // const allPosts = await Post.findAll({
-        //     order: [
-        //         [creation_date, 'DESC']
-        //     ]
-        // });
-        // const displayPosts = allPosts.map((post) => {
-        //     post.get({plain: true})
-        // });
-        res.render('homepage', {postTest, loggedIn: req.session.loggedIn});
+        const allPosts = await Post.findAll({
+            order: [
+                ['creation_date', 'DESC']
+            ]
+        });
+        console.log(allPosts);
+        const displayPosts = allPosts.map((post) => post.dataValues);
+        console.log(displayPosts);
+        res.render('homepage', {displayPosts, loggedIn: req.session.loggedIn});
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
