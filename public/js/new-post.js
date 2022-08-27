@@ -12,21 +12,24 @@ const postHandler = async (event) => {
             headers: { 'Content-Type': 'application/json' },
         })
         .then((response) => {
-            return response;
+            console.log(`Status: ${response.status}`);
+            if (!response.ok) {
+                alert('Error Posting');
+                return;
+            } else {
+                return response.json();        
+            };
         })
         .then((results) => {
+            console.log(results);
             return results;
         })
         .catch(err => response.status(500).send(err));
     };
 
-    let results = await sendLogin(username, password);
-        
-    if (results.status === 200) {
-      document.location.replace(`/post/${post_id}`);
-    } else {
-      alert('Error Posting');
-    }
+    let results = await sendPost(title, contents);
+    console.log(results);
+    document.location.replace(`/post/${results.id}`);
   }
 
 };

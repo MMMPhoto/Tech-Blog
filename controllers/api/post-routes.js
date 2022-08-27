@@ -4,14 +4,17 @@ import Post from '../../models/Post.js';
 
 // Create new Post
 router.post('/', async (req, res) => {
-
-
-});
-
-// Get a Post
-router.get('/:id', async (req, res) => {
-
-
+    try {
+        const newPost = await Post.create({
+            title: req.body.title,
+            contents: req.body.contents,
+            user_id: req.session.user_id
+        });
+        res.status(200).json(newPost);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
 });
 
 // Edit a Post

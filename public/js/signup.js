@@ -24,6 +24,7 @@ const signupHandler = async (event) => {
     let results = await sendLogin(username, email, password);
         
     if (results.status === 200) {
+      console.log(results.message);
       document.location.replace('/dashboard');
     } else {
       alert('Failed to log in.');
