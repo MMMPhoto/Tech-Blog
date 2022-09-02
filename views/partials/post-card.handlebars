@@ -1,13 +1,37 @@
+{{!-- Post card template --}}
 <div class="card m-1">
     <div class="card-body border border-dark p-0 m-3">
-        <div class="card-header bg-secondary m-1">
-            <h3>{{title}}</h3>
+        <div class="d-flex flex-row justify-content-between card-header bg-secondary m-1">
+            <h3><a href='/post/{{id}}'>{{title}}</a></h3>
             <p>{{user_id}}</p>
         </div>
             <div class="card-contents m-1">
                 <p>{{contents}}</p>
             </div>
+        {{!-- New Comment button --}}
+        <button class="btn btn-primary" id="leave-comment">Leave Comment</button>
     </div>
 </div>
 
-<script src="./post.js"></script>
+{{!-- New Comment Form --}}
+<div class="card m-1 comment-form">
+    <div class="card-body border border-dark p-0 m-3">
+        <form class="form m-1 new-comment-form">
+            <div class="form-group m-1">
+                <label for="comment-text">Comment:</label>
+                <input class="form-input" type="text" id="comment-text" />
+            </div>
+            <div class="form-group m-1">
+                <button class="btn btn-primary" type="submit">Comment</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{!-- Comment Card Template Placement --}}
+{{#each comments as |comment|}}
+{{> comment }}
+{{/each}}
+
+
+<script src="./new-comment.js"></script>

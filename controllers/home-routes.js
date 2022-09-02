@@ -27,7 +27,8 @@ let postTest = [
 
 router.get('/', async (req, res) => {
     try {
-        const allPosts = await Post.findAll({
+        const allPosts = 
+        await Post.findAll({
             order: [
                 ['creation_date', 'DESC']
             ]
@@ -35,7 +36,7 @@ router.get('/', async (req, res) => {
         console.log(allPosts);
         const displayPosts = allPosts.map((post) => post.dataValues);
         console.log(displayPosts);
-        res.render('homepage', {displayPosts, loggedIn: req.session.loggedIn});
+        res.render('homepage', {displayPosts, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -51,11 +52,28 @@ router.get('/signup', async (req, res) => {
 });
 
 router.get('/dashboard', async (req, res) => {
-    res.render('dashboard', {loggedIn: req.session.loggedIn}); 
+    try {
+        const userPosts = 
+        await Post.findAll({
+            where: {
+                user_id: req.session.user_id
+            },
+            order: [
+                ['creation_date', 'DESC']
+            ]
+        });
+        console.log(userPosts);
+        const displayPosts = userPosts.map((post) => post.dataValues);
+        console.log(displayPosts);
+        res.render('dashboard', {displayPosts, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
 });
 
 router.get('/new-post', async (req, res) => {
-    res.render('new-post');
+    res.render('new-post', {loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
 });
 
 // Get a Post
@@ -64,7 +82,7 @@ router.get('/post/:id', async (req, res) => {
         let getPost = await Post.findByPk(req.params.id);
         getPost = getPost.dataValues;
         console.log(getPost);
-        res.render('post', {getPost});
+        res.render('post', {getPost, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -74,7 +92,6 @@ router.get('/post/:id', async (req, res) => {
 // User Log out
 router.get('/logout', async (req, res) => {
     req.session.destroy();
-    req.session.loggedIn = false;
     res.render('homepage');
     res.redirect('/');
 });

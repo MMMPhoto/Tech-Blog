@@ -19,3 +19,6 @@ li {
     padding: 2%;
 
  }
+.comment-form {
+    display: none;
+}
