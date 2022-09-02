@@ -1,3 +1,4 @@
+// New Post Handler Function
 const postHandler = async (event) => {
     event.preventDefault();
 

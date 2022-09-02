@@ -1,22 +1,16 @@
-// Function to display comment form
-const getCommentForm = async (event) => {
-    event.preventDefault();
-
-    document.querySelector('.comment-form').style.display = "inline";
-    document.querySelector('#leave-comment').style.display = "none";
-};
-
 // Function to submit comment
 const commentHandler = async (event) => {
     event.preventDefault();
 
     const text = document.querySelector('#comment-text').value.trim();
+    console.log(window.location.href)
+
 
   if (text) {
-    const sendComment = async (title, contents) => {
-        return fetch('/api/posts', {
+    const sendComment = async (text) => {
+        return fetch('/api/comments', {
             method: 'POST',
-            body: JSON.stringify({ title, contents }),
+            body: JSON.stringify({text}),
             headers: { 'Content-Type': 'application/json' },
         })
         .then((response) => {
@@ -35,19 +29,14 @@ const commentHandler = async (event) => {
         .catch(err => response.status(500).send(err));
     };
 
-    let results = await sendComment(title, contents);
+    let results = await sendComment(text);
     console.log(results);
-    document.location.replace(`/post/${results.id}`);
+    document.location.reload();
   }
 
 };
 
-// Click to leave comment
-document
-    .querySelector('#leave-comment')
-    .addEventListener('click', getCommentForm)
-
 // Click to submit comment
 document
     .querySelector('.new-comment-form')
-    .addEventListener('submit', commentHandler)
+    .addEventListener('submit', commentHandler);
