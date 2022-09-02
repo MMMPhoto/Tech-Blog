@@ -1,1 +1,89 @@
 {{> post-card getPost}}
+
+{{!-- Comment Card Template Placement --}}
+{{#each getComments as |comment|}}
+{{> comment }}
+{{/each}}
+
+{{!-- New Comment button --}}
+<button class="btn btn-primary" id="leave-comment">Leave Comment</button>
+
+
+{{!-- New Comment Form --}}
+<div class="card m-1 comment-form">
+    <div class="card-body border border-dark p-0 m-3">
+        <form class="form m-1 new-comment-form">
+            <div class="form-group m-1">
+                <label for="comment-text">Comment:</label>
+                <input class="form-input" type="text" id="comment-text" />
+            </div>
+            <div class="form-group m-1">
+                <button class="btn btn-primary" type="submit">Comment</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Function to display comment form
+    const getCommentForm = async (event) => {
+        event.preventDefault();
+
+        document.querySelector('.comment-form').style.display = "inline";
+        document.querySelector('#leave-comment').style.display = "none";
+    };
+
+    // Function to submit comment
+    const commentHandler = async (event) => {
+        event.preventDefault();
+
+        const text = document.querySelector('#comment-text').value.trim();
+        const url = window.location.href;
+        const postId = url.split('post/').pop().split('?')[0];
+        console.log(postId);
+
+
+    if (text) {
+        const sendComment = async (text, postId) => {
+            return fetch('/api/comments', {
+                method: 'POST',
+                body: JSON.stringify({text, postId}),
+                headers: { 'Content-Type': 'application/json' },
+            })
+            .then((response) => {
+                console.log(`Status: ${response.status}`);
+                if (!response.ok) {
+                    alert('Error Posting');
+                    return;
+                } else {
+                    return response.json();        
+                };
+            })
+            .then((results) => {
+                console.log(results);
+                return results;
+            })
+            .catch(err => response.status(500).send(err));
+        };
+
+        let results = await sendComment(text, postId);
+        console.log(results);
+        document.location.reload();
+    }
+
+    };
+
+    // Click to submit comment
+    document
+        .querySelector('.new-comment-form')
+        .addEventListener('submit', commentHandler);
+
+    // Click to leave comment
+    document
+        .querySelector('#leave-comment')
+        .addEventListener('click', getCommentForm);
+
+
+</script>
+
+{{!-- <script src="./js/new-comment.js"></script> --}}
