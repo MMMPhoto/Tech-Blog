@@ -27,8 +27,7 @@ let postTest = [
 
 router.get('/', async (req, res) => {
     try {
-        const allPosts = 
-        await Post.findAll({
+        const allPosts = await Post.findAll({
             order: [
                 ['creation_date', 'DESC']
             ]
@@ -53,8 +52,7 @@ router.get('/signup', async (req, res) => {
 
 router.get('/dashboard', async (req, res) => {
     try {
-        const userPosts = 
-        await Post.findAll({
+        const userPosts = await Post.findAll({
             where: {
                 user_id: req.session.user_id
             },
@@ -82,7 +80,18 @@ router.get('/post/:id', async (req, res) => {
         let getPost = await Post.findByPk(req.params.id);
         getPost = getPost.dataValues;
         console.log(getPost);
-        res.render('post', {getPost, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
+        const postComments = await Comment.findAll({
+            where: {
+                post_id: req.params['id']
+            },
+            order: [
+                ['creation_date', 'DESC']
+            ]
+        });
+        console.log(postComments);
+        const getComments = postComments.map(comment => comment.dataValues);
+        console.log(getComments);
+        res.render('post', {getPost, getComments, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
