@@ -1,0 +1,19 @@
+<div class="card m-1">
+    <div class="card-body border border-dark p-0 m-3">
+        <h3 class="card-header bg-secondary m-1">Update Post:</h3>
+        <form class="form m-1 new-post-form">
+            <div class="form-group m-1">
+                <label for="post-title">Title:</label>
+                <input class="form-input" type="text" value="{{getPost.title}}" id="post-title" />
+            </div>
+            <div class="form-group m-1">
+                <input class="form-input" type="text" value="{{getPost.contents}}" id="post-contents" />
+            </div>
+            <div class="form-group m-1">
+                <button class="btn btn-primary" type="submit">Post</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="./js/update-post.js"></script>

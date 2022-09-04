@@ -71,6 +71,17 @@ router.get('/new-post', async (req, res) => {
     res.render('new-post', {loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
 });
 
+router.get('/update-post/:id', async (req, res) => {
+    try {
+        let getPost = await Post.findByPk(req.params.id);
+        getPost = getPost.dataValues;
+        res.render('update-post', {getPost, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
+    } catch {
+        console.log(err);
+        res.status(500).json(err);
+    };
+});
+
 // Get a Post
 router.get('/post/:id', async (req, res) => {
     try {
