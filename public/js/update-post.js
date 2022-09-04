@@ -1,15 +1,16 @@
-// New Post Handler Function
+// Update Post Handler Function
 const postHandler = async (event) => {
     event.preventDefault();
 
     const title = document.querySelector('#post-title').value.trim();
     const contents = document.querySelector('#post-contents').value.trim();
+    const url = window.location.href;
+    const postId = url.split('post/').pop().split('?')[0];
 
-  if (title && contents) {
-    const sendPost = async (title, contents) => {
-        return fetch('/api/posts', {
-            method: 'POST',
-            body: JSON.stringify({ title, contents }),
+    const updatePost = async (title, contents) => {
+        return fetch(`/api/posts/${postId}`, {
+            method: 'PUT',
+            body: JSON.stringify({ title, contents}),
             headers: { 'Content-Type': 'application/json' },
         })
         .then((response) => {
@@ -28,13 +29,12 @@ const postHandler = async (event) => {
         .catch(err => response.status(500).send(err));
     };
 
-    let results = await sendPost(title, contents);
+    let results = await updatePost(title, contents);
     console.log(results);
     document.location.replace(`/post/${results.id}`);
-  }
 
 };
 
 document
-    .querySelector('.new-post-form')
+    .querySelector('.update-post-form')
     .addEventListener('submit', postHandler)

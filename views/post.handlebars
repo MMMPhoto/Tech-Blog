@@ -40,8 +40,6 @@
         const text = document.querySelector('#comment-text').value.trim();
         const url = window.location.href;
         const postId = url.split('post/').pop().split('?')[0];
-        console.log(postId);
-
 
     if (text) {
         const sendComment = async (text, postId) => {
