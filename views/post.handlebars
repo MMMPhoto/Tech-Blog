@@ -1,13 +1,13 @@
+{{!-- Post Card Template --}}
 {{> post-card getPost }}
 
-{{!-- Comment Card Template Placement --}}
+{{!-- Comment Card Template --}}
 {{#each getComments as |comment|}}
 {{> comment }}
 {{/each}}
 
 {{!-- New Comment button --}}
-<button class="btn btn-primary" id="leave-comment">Leave Comment</button>
-
+<button class="btn btn-primary m-2" id="leave-comment">Leave Comment</button>
 
 {{!-- New Comment Form --}}
 <div class="card m-1 comment-form">
