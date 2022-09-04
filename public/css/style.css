@@ -17,11 +17,14 @@ ul {
 
 li {
     padding: 2%;
+}
 
- }
+li:last-child {
+    margin-left: auto;
+}
 a {
     text-decoration: none;
-    color: #FFF;
+    color: #fff;
 }
 .comment-form {
     display: none;

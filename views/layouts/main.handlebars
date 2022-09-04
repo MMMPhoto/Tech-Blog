@@ -13,7 +13,7 @@
         <h1>Welcome to Max's Tech Blog!</h1>
     </header>
     <nav class="container-fluid col-12 w-100">
-        <ul class="d-flex flex-row justify-conent-start">
+        <ul class="d-flex flex-row justify-content-start">
             <li><a href="/">Home</a></li>
             <li><a href="/dashboard">Dashboard</a></li>
             {{#if loggedIn}}
@@ -21,12 +21,12 @@
             {{else}}
             <li><a href="/login">Login</a></li>
             {{/if}}
+            {{#if loggedIn}}
+            <li>{{username}} is logged in.</li>
+            {{/if}}
         </ul>
     </nav>
     <main class="container-fluid p-0">
-        {{#if loggedIn}}
-        <p>{{username}} is logged in.</p>
-        {{/if}}
         {{{body}}}
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
