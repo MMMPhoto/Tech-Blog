@@ -4,26 +4,21 @@ import Post from '../models/Post.js';
 import Comment from '../models/Comment.js';
 const router = express.Router();
 
-let postTest = [
-    {
-        title: 'Post 1',
-        contents: 'This is a post, blah blah blah',
-        user: 'MaxMcD',
-        creation_date: '08/27/2022'
-    },
-    {
-        title: 'Post 2',
-        contents: 'Shor post',
-        user: 'MaxMcD',
-        creation_date: '08/27/2022'
-    },
-    {
-        title: 'Post 3',
-        contents: 'LODODFMNDFMNDFMNDFMNDNFMDMFDMFDEMFMDFMDFMASDAFMD',
-        user: 'MaxMcD',
-        creation_date: '08/27/2022'
-    }
-];
+// Function to grab username by id
+const getUsernameById = async (user_id) => {
+    const user = await User.findByPk(user_id);
+    const username = user.dataValues.username;
+    console.log(username);
+    return username;
+};
+
+// Loop to get each Username in an array of post or comments
+const loopForUsers = async (items) => {
+    for (const item of items) {
+        item.username = await getUsernameById(item.user_id);       
+    };
+    return items;
+};
 
 router.get('/', async (req, res) => {
     try {
@@ -32,9 +27,8 @@ router.get('/', async (req, res) => {
                 ['creation_date', 'DESC']
             ]
         });
-        console.log(allPosts);
         const displayPosts = allPosts.map((post) => post.dataValues);
-        console.log(displayPosts);
+        loopForUsers(displayPosts);
         res.render('homepage', {displayPosts, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
     } catch (err) {
         console.log(err);
@@ -60,9 +54,8 @@ router.get('/dashboard', async (req, res) => {
                 ['creation_date', 'DESC']
             ]
         });
-        console.log(userPosts);
         const displayPosts = userPosts.map((post) => post.dataValues);
-        console.log(displayPosts);
+        loopForUsers(displayPosts);
         res.render('dashboard', {displayPosts, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
     } catch (err) {
         console.log(err);
@@ -79,7 +72,7 @@ router.get('/post/:id', async (req, res) => {
     try {
         let getPost = await Post.findByPk(req.params.id);
         getPost = getPost.dataValues;
-        console.log(getPost);
+        getPost.username = await getUsernameById(getPost.user_id);
         const postComments = await Comment.findAll({
             where: {
                 post_id: req.params['id']
@@ -88,9 +81,8 @@ router.get('/post/:id', async (req, res) => {
                 ['creation_date', 'DESC']
             ]
         });
-        console.log(postComments);
         const getComments = postComments.map(comment => comment.dataValues);
-        console.log(getComments);
+        loopForUsers(getComments);
         res.render('post', {getPost, getComments, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
     } catch (err) {
         console.log(err);
