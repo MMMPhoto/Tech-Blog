@@ -46,6 +46,10 @@ router.get('/signup', async (req, res) => {
 
 router.get('/dashboard', async (req, res) => {
     try {
+        if (!req.session.loggedIn) {
+            res.redirect('/login');
+            return;
+        };
         const userPosts = await Post.findAll({
             where: {
                 user_id: req.session.user_id
