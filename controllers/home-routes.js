@@ -93,12 +93,35 @@ router.get('/post/:id', async (req, res) => {
                 post_id: req.params['id']
             },
             order: [
-                ['creation_date', 'DESC']
+                ['creation_date', 'ASC']
             ]
         });
         const getComments = postComments.map(comment => comment.dataValues);
         loopForUsers(getComments);
         res.render('post', {getPost, getComments, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
+});
+
+// Get a Post with Comment Form
+router.get('/post-new-comment/:id', async (req, res) => {
+    try {
+        let getPost = await Post.findByPk(req.params.id);
+        getPost = getPost.dataValues;
+        getPost.username = await getUsernameById(getPost.user_id);
+        const postComments = await Comment.findAll({
+            where: {
+                post_id: req.params['id']
+            },
+            order: [
+                ['creation_date', 'ASC']
+            ]
+        });
+        const getComments = postComments.map(comment => comment.dataValues);
+        loopForUsers(getComments);
+        res.render('post-new-comment', {getPost, getComments, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
     } catch (err) {
         console.log(err);
         res.status(500).json(err);

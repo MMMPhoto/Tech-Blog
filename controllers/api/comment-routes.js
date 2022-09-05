@@ -18,12 +18,6 @@ router.post('/', async (req, res) => {
     };
 });
 
-// Get a Comment
-router.get('/:id', async (req, res) => {
-
-
-});
-
 // Edit a Comment
 router.put('/:id', async (req, res) => {
 

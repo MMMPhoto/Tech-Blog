@@ -20,27 +20,19 @@ router.post('/', async (req, res) => {
 // Edit a Post
 router.put('/:id', async (req, res) => {
     try {
-        const updatePost = await Post.update({
+        await Post.update({
             title: req.body.title,
             contents: req.body.contents,
         },
-        {
-            where: {
-                id: req.params.id
-            }
+        { where: { id: req.params.id }
         });
-        console.log(updatePost);
         const newUpdatedPost = await Post.findByPk(req.params.id);
-        console.log(newUpdatedPost)
         res.status(200).json(newUpdatedPost);
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
     };
-
-
 });
-
 
 // Delete a Post
 router.delete('/:id', async (req, res) => {
