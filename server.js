@@ -6,6 +6,7 @@ const require = createRequire(import.meta.url);
 import express from 'express';
 import session from 'express-session';
 import exphbs from 'express-handlebars';
+import helpers from './utils/helpers.js';
 import path from 'path';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -40,20 +41,7 @@ const sess = {
 app.use(session(sess));
 
 // Set up handlebars
-const hbs = exphbs.create({ 
-    helpers: {
-        ifEqual: (x, y) => {
-            if (x === y) {
-                return true;
-            } else {
-                return false;
-            };
-        },
-        format_date: (date) => {
-            return date.toLocaleDateString();
-        }
-    }
-});
+const hbs = exphbs.create({ helpers });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
   
