@@ -26,10 +26,3 @@ a {
     text-decoration: none;
     color: #fff;
 }
-/* .comment-form {
-    display: none;
-} */
-.delete-warning {
-    background-color: blueviolet;
-    display: none;
-}

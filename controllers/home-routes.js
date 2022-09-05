@@ -68,11 +68,24 @@ router.get('/dashboard', async (req, res) => {
 });
 
 router.get('/new-post', async (req, res) => {
-    res.render('new-post', {loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
+    try {
+        if (!req.session.loggedIn) {
+            res.redirect('/login');
+            return;
+        };
+        res.render('new-post', {loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
 });
 
 router.get('/update-post/:id', async (req, res) => {
     try {
+        if (!req.session.loggedIn) {
+            res.redirect('/login');
+            return;
+        };
         let getPost = await Post.findByPk(req.params.id);
         getPost = getPost.dataValues;
         res.render('update-post', {getPost, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
@@ -108,6 +121,10 @@ router.get('/post/:id', async (req, res) => {
 // Get a Post with Comment Form
 router.get('/post-new-comment/:id', async (req, res) => {
     try {
+        if (!req.session.loggedIn) {
+            res.redirect('/login');
+            return;
+        };
         let getPost = await Post.findByPk(req.params.id);
         getPost = getPost.dataValues;
         getPost.username = await getUsernameById(getPost.user_id);
@@ -131,6 +148,10 @@ router.get('/post-new-comment/:id', async (req, res) => {
 // Get a Post with Delete Warning
 router.get('/post-delete/:id', async (req, res) => {
     try {
+        if (!req.session.loggedIn) {
+            res.redirect('/login');
+            return;
+        };
         let getPost = await Post.findByPk(req.params.id);
         getPost = getPost.dataValues;
         getPost.username = await getUsernameById(getPost.user_id);

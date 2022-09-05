@@ -3,17 +3,19 @@
     <div class="card-body border border-dark p-0 m-3">
         <div class="d-flex flex-row justify-content-between card-header bg-secondary m-1">
             <h3><a href='/post/{{getPost.id}}'>{{getPost.title}}</a></h3>
-            <p>By: {{getPost.username}} on {{getPost.creation_date}}</p>
+            <p>By: {{getPost.username}} on {{formate_date getPost.creation_date}}</p>
         </div>
         <div class="card-contents m-1">
             <p>{{getPost.contents}}</p>
         </div>
         {{!-- Delete Warning --}}
+        {{#if (ifEqual userId getPost.user_id)}}
         <em class="d-flex flex-row justify-content-end delete-warning">Are you sure you want to delete this Post?</em>
         <div class="d-flex flex-row justify-content-end delete-warning" id="delete-warning">
             <button class="btn btn-primary m-2" id="yes-delete-post">YES DELETE</button>
             <button class="btn btn-primary m-2"><a href="/post/{{getPost.id}}">No, keep it</a></button>
         </div>
+        {{/if}}
     </div>
 </div>
 
@@ -22,8 +24,10 @@
 {{> comment }}
 {{/each}}
 
+{{#if loggedIn}}
 {{!-- New Comment button --}}
 <button class="btn btn-primary m-2" id="leave-comment"><a href="/post-new-comment/{{getPost.id}}">Leave Comment</a></button>
+{{/if}}
 
 {{!-- Empty Comment Form --}}
 <div class="card m-1 comment-form"></div>
