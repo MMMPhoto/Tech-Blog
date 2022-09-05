@@ -35,7 +35,49 @@ const commentHandler = async (event) => {
     }
 };
 
+// Function to Delete Post
+const postDelete = async (event) => {
+    event.preventDefault();
+
+    const url = window.location.href;
+    const postId = url.split('post-delete/').pop().split('?')[0];
+
+    const deletePost = async (postId) => {
+        return fetch(`/api/posts/${postId}`, {
+            method: 'DELETE',
+            body: JSON.stringify({postId}),
+            headers: { 'Content-Type': 'application/json' },
+        })
+        .then((response) => {
+            console.log(`Status: ${response.status}`);
+            if (!response.ok) {
+                alert('Error Deleting');
+                return;
+            } else {
+                return response.json();        
+            };
+        })
+        .then((results) => {
+            console.log(results);
+            return results;
+        })
+        .catch(err => response.status(500).send(err));
+    };
+
+    let results = await deletePost(postId);
+    console.log(results);
+    document.location.replace('/dashboard');
+
+
+
+}
+
 // Click to leave comment
 document
     .querySelector('.comment-form')
     .addEventListener('submit', commentHandler);
+
+// Click to Delete Post
+document
+    .querySelector('#yes-delete-post')
+    .addEventListener('click', postDelete);

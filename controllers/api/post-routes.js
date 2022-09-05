@@ -1,6 +1,7 @@
 import express from 'express';
 const router = express.Router();
 import Post from '../../models/Post.js';
+import Comment from '../../models/Comment.js';
 
 // Create new Post
 router.post('/', async (req, res) => {
@@ -36,7 +37,15 @@ router.put('/:id', async (req, res) => {
 
 // Delete a Post
 router.delete('/:id', async (req, res) => {
-
+    try {
+        console.log(req.body);
+        await Comment.destroy({where: {post_id: req.body.postId}});
+        await Post.destroy({where: {id: req.body.postId}});
+        res.status(200).json({'message': 'Post Deleted!'});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
 });
 
 export default router;

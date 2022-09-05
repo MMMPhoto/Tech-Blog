@@ -128,6 +128,29 @@ router.get('/post-new-comment/:id', async (req, res) => {
     };
 });
 
+// Get a Post with Delete Warning
+router.get('/post-delete/:id', async (req, res) => {
+    try {
+        let getPost = await Post.findByPk(req.params.id);
+        getPost = getPost.dataValues;
+        getPost.username = await getUsernameById(getPost.user_id);
+        const postComments = await Comment.findAll({
+            where: {
+                post_id: req.params['id']
+            },
+            order: [
+                ['creation_date', 'ASC']
+            ]
+        });
+        const getComments = postComments.map(comment => comment.dataValues);
+        loopForUsers(getComments);
+        res.render('post-delete', {getPost, getComments, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    };
+});
+
 // User Log out
 router.get('/logout', async (req, res) => {
     req.session.destroy();

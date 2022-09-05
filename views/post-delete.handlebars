@@ -8,10 +8,11 @@
         <div class="card-contents m-1">
             <p>{{getPost.contents}}</p>
         </div>
-        {{!-- Update and Delete Buttons --}}
-        <div class="d-flex flex-row justify-content-end">
-            <button class="btn btn-primary m-2" id="update-post"><a href="/update-post/{{getPost.id}}">Update Post</a></button>
-            <button class="btn btn-primary m-2" id="delete-post"><a href="/post-delete/{{getPost.id}}">Delete Post</a></button>
+        {{!-- Delete Warning --}}
+        <em class="d-flex flex-row justify-content-end delete-warning">Are you sure you want to delete this Post?</em>
+        <div class="d-flex flex-row justify-content-end delete-warning" id="delete-warning">
+            <button class="btn btn-primary m-2" id="yes-delete-post">YES DELETE</button>
+            <button class="btn btn-primary m-2"><a href="/post/{{getPost.id}}">No, keep it</a></button>
         </div>
     </div>
 </div>
