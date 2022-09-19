@@ -18,6 +18,9 @@
     </div>
 </div>
 
+{{!-- Empty div to avoid JS event listener error --}}
+<div id="yes-delete-post"></div>
+
 {{!-- Comment Card Template --}}
 {{#each getComments as |comment|}}
 {{> comment }}

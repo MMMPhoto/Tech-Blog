@@ -26,6 +26,7 @@ const Comment = sequelize.define('Comment', {
         },
         post_id: {
             type: Datatype.INTEGER,
+            allowNull: false,
             references: {
                 model: 'post',
                 key: 'id'
@@ -33,6 +34,7 @@ const Comment = sequelize.define('Comment', {
         },
         user_id: {
             type: Datatype.INTEGER,
+            allowNull: false,
             references: {
                 model: 'user',
                 key: 'id'

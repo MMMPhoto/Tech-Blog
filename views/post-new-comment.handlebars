@@ -8,13 +8,18 @@
         <div class="card-contents m-1">
             <p>{{getPost.contents}}</p>
         </div>
+        {{#if (ifEqual userId getPost.user_id)}}
         {{!-- Update and Delete Buttons --}}
         <div class="d-flex flex-row justify-content-end">
             <button class="btn btn-primary m-2" id="update-post"><a href="/update-post/{{getPost.id}}">Update Post</a></button>
             <button class="btn btn-primary m-2" id="delete-post"><a href="/post-delete/{{getPost.id}}">Delete Post</a></button>
         </div>
+        {{/if}}
     </div>
 </div>
+
+{{!-- Empty div to avoid JS event listener error --}}
+<div id="yes-delete-post"></div>
 
 {{!-- Comment Card Template --}}
 {{#each getComments as |comment|}}
