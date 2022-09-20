@@ -3,7 +3,7 @@
     <div class="card-body border border-dark p-0 m-3">
         <div class="d-flex flex-row justify-content-between card-header bg-secondary m-1">
             <h3><a href='/post/{{getPost.id}}'>{{getPost.title}}</a></h3>
-            <p>By: {{getPost.username}} on {{formate_date getPost.creation_date}}</p>
+            <p>By: {{getPost.username}} on {{format_date getPost.creation_date}}</p>
         </div>
         <div class="card-contents m-1">
             <p>{{getPost.contents}}</p>

@@ -29,12 +29,12 @@
 {{!-- New Comment Form --}}
 <div class="card m-1 comment-form">
     <div class="card-body border border-dark p-0 m-3">
-        <form class="form m-1 new-comment-form">
-            <div class="form-group m-1">
+        <form class="form m-1 new-comment-form p-1">
+            <div class="form-group d-flex flex-column m-1 p-1">
                 <label for="comment-text">Comment:</label>
-                <input class="form-input" type="text" id="comment-text" />
+                <textarea class="form-input form-control col-12 border border-dark mt-1" type="text" id="comment-text"></textarea>
             </div>
-            <div class="form-group m-1">
+            <div class="form-group m-1 p-1">
                 <button class="btn btn-primary" type="submit">Comment</button>
             </div>
         </form>
