@@ -21,7 +21,7 @@ import sequelize from './config/connection.js';
 
 // Set up express and set port
 const app = express();
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3001;
 
 // Set up sessions
 const sess = {
