@@ -3,12 +3,12 @@ body {
 }
 
 header {
-    background-color: aqua;
+    background-color: #907676;
     border: none;
 }
 
 nav {
-    background-color: brown;
+    background-color: #642323;
 }
 
 ul {
@@ -20,9 +20,26 @@ li {
 }
 
 li:last-child {
+    color: #fff;
     margin-left: auto;
 }
+
 a {
     text-decoration: none;
     color: #fff;
 }
+
+.card-header {
+    color: #fff;
+    background-color: #642323;
+
+}
+
+.btn {
+    background-color: #907676;
+}
+
+.btn a {
+    color: #000;
+}
+

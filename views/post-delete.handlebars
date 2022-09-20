@@ -12,8 +12,8 @@
         {{#if (ifEqual userId getPost.user_id)}}
         <em class="d-flex flex-row justify-content-end delete-warning">Are you sure you want to delete this Post?</em>
         <div class="d-flex flex-row justify-content-end delete-warning" id="delete-warning">
-            <button class="btn btn-primary m-2" id="yes-delete-post">YES DELETE</button>
-            <button class="btn btn-primary m-2"><a href="/post/{{getPost.id}}">No, keep it</a></button>
+            <button class="btn m-2" id="yes-delete-post">YES DELETE</button>
+            <button class="btn m-2"><a href="/post/{{getPost.id}}">No, keep it</a></button>
         </div>
         {{/if}}
     </div>
