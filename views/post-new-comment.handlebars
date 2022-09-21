@@ -1,7 +1,7 @@
 {{!-- Post Card with extra options --}}
-<div class="card m-1">
-    <div class="card-body border border-dark p-0 m-3">
-        <div class="d-flex flex-row justify-content-between card-header bg-secondary m-1">
+<div class="card m-1 border border-0">
+    <div class="card-body border border-dark rounded p-0 m-3">
+        <div class="d-flex flex-row justify-content-between card-header m-0 p-2">
             <h3><a href='/post/{{getPost.id}}'>{{getPost.title}}</a></h3>
             <p>By: {{getPost.username}} on {{format_date getPost.creation_date}}</p>
         </div>
@@ -27,8 +27,8 @@
 {{/each}}
 
 {{!-- New Comment Form --}}
-<div class="card m-1 comment-form">
-    <div class="card-body border border-dark p-0 m-3">
+<div class="card m-1 comment-form border border-0">
+    <div class="card-body border border-dark rounded p-0 m-3">
         <form class="form m-1 new-comment-form p-1">
             <div class="form-group d-flex flex-column m-1 p-1">
                 <label for="comment-text">Comment:</label>
