@@ -23,11 +23,11 @@ To create a new post, click "New Post" from the Dashboard. The user will be redi
 
 If a user is viewing one of their own commments, they user also has the ability to update or delete that post. To log out, a user clicks the "Logout" link in the navbar. They will then be able to view posts on the homescreen, or view individual posts, but will not be able to post or comment.
 
-![Usage Screenshot 1](./assets/social-network-api-screenshot-1.png?raw=true)
+![Usage Screenshot 1](./assets/images/tech-blog-screenshot-1.png?raw=true)
 
-![Usage Screenshot 2](./assets/social-network-api-screenshot-2.png?raw=true)
+![Usage Screenshot 2](./assets/images/tech-blog-screenshot-2.png?raw=true)
   
-![Usage Screenshot 3](./assets/social-network-api-screenshot-3.png?raw=true)
+![Usage Screenshot 3](./assets/images/tech-blog-screenshot-3.png?raw=true)
 
 ## Features
 
