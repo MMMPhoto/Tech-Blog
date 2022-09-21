@@ -20,6 +20,7 @@ const loopForUsers = async (items) => {
     return items;
 };
 
+// Homepage Route
 router.get('/', async (req, res) => {
     try {
         const allPosts = await Post.findAll({
@@ -36,14 +37,17 @@ router.get('/', async (req, res) => {
     };
 });
 
+// Login page Route
 router.get('/login', async (req, res) => {
     res.render('login'); 
 });
 
+// Signup page route
 router.get('/signup', async (req, res) => {
     res.render('signup'); 
 });
 
+// Dashboard Route
 router.get('/dashboard', async (req, res) => {
     try {
         if (!req.session.loggedIn) {
@@ -67,6 +71,7 @@ router.get('/dashboard', async (req, res) => {
     };
 });
 
+// New Post Route
 router.get('/new-post', async (req, res) => {
     try {
         if (!req.session.loggedIn) {
@@ -80,6 +85,7 @@ router.get('/new-post', async (req, res) => {
     };
 });
 
+// Update Post Route
 router.get('/update-post/:id', async (req, res) => {
     try {
         if (!req.session.loggedIn) {
@@ -95,7 +101,7 @@ router.get('/update-post/:id', async (req, res) => {
     };
 });
 
-// Get a Post
+// Single Post Route
 router.get('/post/:id', async (req, res) => {
     try {
         let getPost = await Post.findByPk(req.params.id);
@@ -110,7 +116,7 @@ router.get('/post/:id', async (req, res) => {
             ]
         });
         const getComments = postComments.map(comment => comment.dataValues);
-        loopForUsers(getComments);
+        await loopForUsers(getComments);
         res.render('post', {getPost, getComments, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
     } catch (err) {
         console.log(err);
@@ -118,7 +124,7 @@ router.get('/post/:id', async (req, res) => {
     };
 });
 
-// Get a Post with Comment Form
+// Post with Comment Form
 router.get('/post-new-comment/:id', async (req, res) => {
     try {
         if (!req.session.loggedIn) {
@@ -137,7 +143,7 @@ router.get('/post-new-comment/:id', async (req, res) => {
             ]
         });
         const getComments = postComments.map(comment => comment.dataValues);
-        loopForUsers(getComments);
+        await loopForUsers(getComments);
         res.render('post-new-comment', {getPost, getComments, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
     } catch (err) {
         console.log(err);
@@ -145,7 +151,7 @@ router.get('/post-new-comment/:id', async (req, res) => {
     };
 });
 
-// Get a Post with Delete Warning
+// Post with Delete Warning
 router.get('/post-delete/:id', async (req, res) => {
     try {
         if (!req.session.loggedIn) {
@@ -164,7 +170,7 @@ router.get('/post-delete/:id', async (req, res) => {
             ]
         });
         const getComments = postComments.map(comment => comment.dataValues);
-        loopForUsers(getComments);
+        await loopForUsers(getComments);
         res.render('post-delete', {getPost, getComments, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
     } catch (err) {
         console.log(err);
@@ -172,7 +178,7 @@ router.get('/post-delete/:id', async (req, res) => {
     };
 });
 
-// User Log out
+// User Log out Route
 router.get('/logout', async (req, res) => {
     req.session.destroy();
     res.render('homepage');
