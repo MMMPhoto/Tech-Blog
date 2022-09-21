@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
             ]
         });
         const displayPosts = allPosts.map((post) => post.dataValues);
-        loopForUsers(displayPosts);
+        await loopForUsers(displayPosts);
         res.render('homepage', {displayPosts, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
     } catch (err) {
         console.log(err);
@@ -59,7 +59,7 @@ router.get('/dashboard', async (req, res) => {
             ]
         });
         const displayPosts = userPosts.map((post) => post.dataValues);
-        loopForUsers(displayPosts);
+        await loopForUsers(displayPosts);
         res.render('dashboard', {displayPosts, loggedIn: req.session.loggedIn, userId: req.session.user_id, username: req.session.username});
     } catch (err) {
         console.log(err);
